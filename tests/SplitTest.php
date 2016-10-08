@@ -32,11 +32,25 @@ class SplitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('hello'), $args);
     }
 
+    public function testSingleStringWithEscapedWhitespace()
+    {
+        $args = Arguments\split('hello\\ world');
+
+        $this->assertEquals(array('hello world'), $args);
+    }
+
     public function testSimpleStringWithArgument()
     {
         $args = Arguments\split('hello world');
 
         $this->assertEquals(array('hello', 'world'), $args);
+    }
+
+    public function testSimpleStringWithArgumentWithInterpretedEscape()
+    {
+        $args = Arguments\split('hello world\\nthere!');
+
+        $this->assertEquals(array('hello', "world\nthere!"), $args);
     }
 
     public function testSimpleStringWithArgumentsAndWhitespace()

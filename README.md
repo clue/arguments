@@ -98,8 +98,9 @@ way more sophisticated. It also supports parsing the following:
 * Single quoted strings (`'hello world'`) which preserve any whitespace characters and
   only accept escape sequences `\\` and `\'`, e.g. `'let\'s go'`.
 * Double quoted strings (`"hello world"`) which preserve any whitespace characters and
-  support common escape sequences such as `\t\r\n` etc., e.g. `"hello\nworld!"`.
-* Unquoted strings are terminated at the next whitespace character.
+  support common escape sequences such as `\t\r\n` etc., e.g. `"hi there\nworld!"`.
+* Unquoted strings are terminated at the next (unescaped) whitespace character and
+  support common escape sequences such as `\t\r\n` etc., e.g. `hi\ there\nworld!`.
 * Ignores excessive whitespace around arguments, such as trailing whitespace or
   multiple spaces between arguments.
 * Makes no assumptions about your input encoding, so this works with binary data

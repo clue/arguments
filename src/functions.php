@@ -46,25 +46,7 @@ function split($command)
         for (; isset($command[$i]); ++$i) {
             $c = $command[$i];
 
-            if ($inQuote === '"') {
-                // we're within a "double quoted" string
-                if ($c === '\\' && isset($command[$i + 1])) {
-                    // any escaped character will be processed
-                    $c = $command[++$i];
-                    if (isset($escapes[$c])) {
-                        // apply mapped character if applicable
-                        $argument .= $escapes[$c];
-                    } else {
-                        // pass through original character otherwise
-                        $argument .= $c;
-                    }
-                    continue;
-                } else if ($c === '"') {
-                    // double quote ends
-                    $inQuote = null;
-                    continue;
-                }
-            } elseif ($inQuote === "'") {
+            if ($inQuote === "'") {
                 // we're within a 'single quoted' string
                 if ($c === '\\' && isset($command[$i + 1]) && ($command[$i + 1] === "'" || $command[$i + 1] === '\\')) {
                     // escaped single quote or backslash ends up as char in argument
@@ -76,12 +58,27 @@ function split($command)
                     continue;
                 }
             } else {
-                // we're not within any quotes
-                if ($c === '"' || $c === "'") {
+                // we're not within any quotes or within a "double quoted" string
+                if ($c === '\\' && isset($command[$i + 1])) {
+                    // any escaped character will be processed
+                    $c = $command[++$i];
+                    if (isset($escapes[$c])) {
+                        // apply mapped character if applicable
+                        $argument .= $escapes[$c];
+                    } else {
+                        // pass through original character otherwise
+                        $argument .= $c;
+                    }
+                    continue;
+                } elseif ($inQuote === '"' && $c === '"') {
+                    // double quote ends
+                    $inQuote = null;
+                    continue;
+                } elseif ($inQuote === null && ($c === '"' || $c === "'")) {
                     // start of quotes found
                     $inQuote = $c;
                     continue;
-                }elseif (in_array($c, $ws)) {
+                } elseif ($inQuote === null && in_array($c, $ws)) {
                     // whitespace character terminates unquoted argument
                     break;
                 }
