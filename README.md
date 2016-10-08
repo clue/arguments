@@ -79,7 +79,7 @@ command like this:
 // example command syntax:
 // addUser <username> <realname> <homepage> <comment>
 
-$line = 'adduser example Demo example.com Hi!
+$line = 'adduser example Demo example.com Hi!';
 
 $args = Arguments\split($line);
 
@@ -108,7 +108,7 @@ way more sophisticated. It also supports parsing the following:
 For example, this means that the following also parses as expected:
 
 ```php
-$line = 'adduser clue 'Christian Lück' https://lueck.tv/ "Hällo\tWörld\n"
+$line = 'adduser clue \'Christian Lück\' https://lueck.tv/ "Hällo\tWörld\n"';
 
 $args = Arguments\split($line);
 
@@ -125,7 +125,7 @@ up to higher levels, i.e. the consumer of this library. This also allows you to
 explicitly pass empty arguments like this:
 
 ```php
-$line = 'sendmail "" clue
+$line = 'sendmail "" clue';
 
 $args = Arguments\split($line);
 
