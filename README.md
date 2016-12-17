@@ -98,14 +98,18 @@ way more sophisticated. It also supports parsing the following:
 * Single quoted strings (`'hello world'`) which preserve any whitespace characters and
   only accept escape sequences `\\` and `\'`, e.g. `'let\'s go'`.
 * Double quoted strings (`"hello world"`) which preserve any whitespace characters and
-  support common escape sequences such as `\t\r\n` etc., hex escape sequences such as `\x20`
-  and octal escape sequences such as `\040`, e.g. `"hi there\nworld!"`.
+  support common escape sequences such as `\t\r\n` etc., unicode escape sequences
+  such as `\u0020`, hex escape sequences such as `\x20` and
+  octal escape sequences such as `\040`, e.g. `"hi there\nworld!"`.
 * Unquoted strings are terminated at the next (unescaped) whitespace character and
   support common escape sequences just like double quoted strings, e.g. `hi\ there\nworld!`.
 * Ignores excessive whitespace around arguments, such as trailing whitespace or
   multiple spaces between arguments.
-* Makes no assumptions about your input encoding, so this works with binary data
-  as well as full UTF-8 (Unicode) support.
+* Makes very few assumptions about your input encoding otherwise, so that input
+  is allowed to contain raw binary data as well as full UTF-8 (Unicode) support.
+  Unicode characters may either be given as normal UTF-8 strings such as
+  `hällö` or can be given as unicode escape sequences in double quoted and
+  unquoted strings, e.g. `h\u00e4ll\u00f6`. 
 
 For example, this means that the following also parses as expected:
 
