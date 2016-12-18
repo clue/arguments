@@ -205,6 +205,17 @@ try {
 closing quotes will actually be marked as escaped.
 Either handle these yourself or wrap this block in another `try-catch`.
 
+The `getPosition(): int` method can be used to get the character position of
+the quotes within the input string.
+In the previous example, this will be at `$line[9]`:
+
+```php
+$pos = $e->getPosition();
+
+assert($pos === 9);
+assert($line[$pos] === $e->getQuotes());
+```
+
 ## Install
 
 The recommended way to install this library is [through Composer](http://getcomposer.org).

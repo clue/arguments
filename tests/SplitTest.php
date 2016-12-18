@@ -149,6 +149,7 @@ class SplitTest extends PHPUnit_Framework_TestCase
             $this->fail();
         } catch (Arguments\UnclosedQuotesException $e) {
             $this->assertEquals('"', $e->getQuotes());
+            $this->assertEquals(6, $e->getPosition());
         }
     }
 

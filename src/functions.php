@@ -33,6 +33,7 @@ function split($command)
         }
 
         $inQuote = null;
+        $quotePosition = 0;
         $argument = '';
         $part = '';
 
@@ -84,6 +85,7 @@ function split($command)
                 } elseif ($inQuote === null && ($c === '"' || $c === "'")) {
                     // start of quotes found
                     $inQuote = $c;
+                    $quotePosition = $i;
 
                     // previous unquoted part should be interpreted
                     $argument .= stripcslashes($part);
@@ -100,7 +102,7 @@ function split($command)
 
         // end of argument reached. Still in quotes is a parse error.
         if ($inQuote !== null) {
-            throw new UnclosedQuotesException($inQuote);
+            throw new UnclosedQuotesException($inQuote, $quotePosition);
         }
 
         // add remaining part to current argument
