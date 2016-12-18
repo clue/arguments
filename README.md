@@ -20,6 +20,7 @@ But many other tools may need similar parsing during their runtime.
   * [UnclosedQuotesException](#unclosedquotesexception)
 * [Install](#install)
 * [License](#license)
+* [More](#more)
 
 ### Quickstart example
 
@@ -232,3 +233,12 @@ See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.
 ## License
 
 MIT
+
+## More
+
+* If you want to register/route available commands and their arguments, you may
+  want to look into using [clue/commander](https://github.com/clue/php-commander).
+
+* If you want to build an interactive CLI tool, you may want to look into using
+  [clue/stdio-react](https://github.com/clue/php-stdio-react) in order to react
+  to commands from STDIN.
