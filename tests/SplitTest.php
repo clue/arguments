@@ -142,6 +142,16 @@ class SplitTest extends PHPUnit_Framework_TestCase
         Arguments\split('hello "world');
     }
 
+    public function testSimpleStringWithUnbalancedDoubleQuotesThrowsWithCorrectQuotes()
+    {
+        try {
+            Arguments\split('hello "world');
+            $this->fail();
+        } catch (Arguments\UnclosedQuotesException $e) {
+            $this->assertEquals('"', $e->getQuotes());
+        }
+    }
+
     public function testSingleStringWithDoubleQuotesAndDoubleEscape()
     {
         $bs = "\\";

@@ -169,6 +169,9 @@ try {
 }
 ```
 
+See also the following chapter if you want to (try to) correct the user input
+line automatically.
+
 ### UnclosedQuotesException
 
 The `UnclosedQuotesException` will be raised by the [`split()`](#split)
@@ -176,6 +179,31 @@ function when the input line has unbalanced quotes (i.e. a quoted argument
 started without passing ending quotes).
 
 This class extends PHP's `RuntimeException`.
+
+The `getQuotes(): string` method can be used to get the quotes this argument
+started with:
+
+```php
+$quotes = $e->getQuotes();
+```
+
+For example, this can be used to (try to) correct the user input line like this:
+
+```php
+$line = 'sendmail "hello world';
+
+try {
+    $args = Arguments\split($line);
+    // throws RuntimeException
+} catch (Arguments\UnclosedQuotesException $e) {
+    // retry parsing with closing quotes appended
+    $args = Arguments\split($line . $e->getQuotes());
+}
+```
+
+> Note: The input line may end with a backslash in which case the appended
+closing quotes will actually be marked as escaped.
+Either handle these yourself or wrap this block in another `try-catch`.
 
 ## Install
 

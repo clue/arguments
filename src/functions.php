@@ -100,7 +100,7 @@ function split($command)
 
         // end of argument reached. Still in quotes is a parse error.
         if ($inQuote !== null) {
-            throw new UnclosedQuotesException('Still in quotes (' . $inQuote  . ')');
+            throw new UnclosedQuotesException($inQuote);
         }
 
         // add remaining part to current argument
