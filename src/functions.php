@@ -56,6 +56,19 @@ function split($command)
             } else {
                 // we're not within any quotes or within a "double quoted" string
                 if ($c === '\\' && isset($command[$i + 1])) {
+                    if ($command[$i + 1] === 'u') {
+                        // this looks like a unicode escape sequence
+                        // use JSON parser to interpret this
+                        $c = json_decode('"' . substr($command, $i, 6) . '"');
+                        if ($c !== null) {
+                            // on success => use interpreted and skip sequence
+                            $argument .= stripcslashes($part) . $c;
+                            $part = '';
+                            $i += 5;
+                            continue;
+                        }
+                    }
+
                     // escaped characters will be interpreted when part is complete
                     $part .= $command[$i] . $command[$i + 1];
                     ++$i;

@@ -238,6 +238,48 @@ class SplitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array("hello999world"), $args);
     }
 
+    public function testSingleStringWithInterpretedUnicodeEscapes()
+    {
+        $args = Arguments\split('hello\u0020world');
+
+        $this->assertEquals(array("hello world"), $args);
+    }
+
+    public function testSingleStringWithInterpretedUnicodeEscapesBackslash()
+    {
+        $args = Arguments\split('hello\u005Cx00');
+
+        $this->assertEquals(array("hello\\x00"), $args);
+    }
+
+    public function testSingleStringWithInterpretedUnicodeEscapesEndLowerCase()
+    {
+        $args = Arguments\split('hell\u00f6');
+
+        $this->assertEquals(array("hellö"), $args);
+    }
+
+    public function testSingleStringWithInterpretedUnicodeEscapesEndUpperCase()
+    {
+        $args = Arguments\split('hell\u00F6');
+
+        $this->assertEquals(array("hellö"), $args);
+    }
+
+    public function testSingleStringWithUninterpretedCharacterIsNotAnUnicodeEscape()
+    {
+        $args = Arguments\split('hell\\uworld');
+
+        $this->assertEquals(array("helluworld"), $args);
+    }
+
+    public function testSingleStringWithUninterpretedCharacterIsNotAnUnicodeEscapeEnd()
+    {
+        $args = Arguments\split('hell\\u');
+
+        $this->assertEquals(array("hellu"), $args);
+    }
+
     // "\n"\n"\n"
     public function testSingleStringWithCombinedDoubleQuotedPartsWithInterpretedEscapes()
     {
