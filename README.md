@@ -17,6 +17,7 @@ But many other tools may need similar parsing during their runtime.
 * [Quickstart example](#quickstart-example)
 * [Usage](#usage)
   * [split()](#split)
+  * [UnclosedQuotesException](#unclosedquotesexception)
 * [Install](#install)
 * [License](#license)
 
@@ -152,9 +153,10 @@ $args = Arguments\split($line);
 assert(count($args) === 0);
 ```
 
-Parsing an input line that has a missing quote (i.e. a quoted argument started
-without passing an ending quote), this will throw a `RuntimeException`. This
-can be useful to ask the user to correct their input:
+Parsing an input line that has unbalanced quotes (i.e. a quoted argument started
+without passing ending quotes), this will throw an
+[`UnclosedQuotesException`](#unclosedquotesexception).
+This can be useful to ask the user to correct their input:
 
 ```php
 $line = 'sendmail "hello world';
@@ -162,10 +164,18 @@ $line = 'sendmail "hello world';
 try {
     Arguments\split($line);
     // throws RuntimeException
-} catch (RuntimeException $e) {
+} catch (Arguments\UnclosedQuotesException $e) {
     echo 'Please check your input.';
 }
 ```
+
+### UnclosedQuotesException
+
+The `UnclosedQuotesException` will be raised by the [`split()`](#split)
+function when the input line has unbalanced quotes (i.e. a quoted argument
+started without passing ending quotes).
+
+This class extends PHP's `RuntimeException`.
 
 ## Install
 

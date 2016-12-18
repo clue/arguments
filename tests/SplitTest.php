@@ -97,7 +97,7 @@ class SplitTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException Clue\Arguments\UnclosedQuotesException
      */
     public function testSingleStringWithUnbalancedDoubleQuotesThrows()
     {
@@ -105,7 +105,7 @@ class SplitTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException Clue\Arguments\UnclosedQuotesException
      */
     public function testSingleStringWithUnbalancedSingleQuotesThrows()
     {
@@ -113,7 +113,7 @@ class SplitTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException Clue\Arguments\UnclosedQuotesException
      */
     public function testSimpleStringWithUnbalancedSingleQuotesThrows()
     {
@@ -135,7 +135,7 @@ class SplitTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RuntimeException
+     * @expectedException Clue\Arguments\UnclosedQuotesException
      */
     public function testSimpleStringWithUnbalancedDoubleQuotesThrows()
     {

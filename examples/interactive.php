@@ -16,7 +16,7 @@ while (true) {
     // try to parse command line or complain
     try {
         $args = Clue\Arguments\split($line);
-    } catch (\RuntimeException $e) {
+    } catch (Clue\Arguments\UnclosedQuotesException $e) {
         echo 'Invalid command line. Missing quotes?' . PHP_EOL;
         continue;
     }
