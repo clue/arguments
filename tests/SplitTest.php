@@ -181,4 +181,86 @@ class SplitTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(array("echo", "let's go"), $args);
     }
+
+    public function testSingleStringWithInterpretedEscapes()
+    {
+        $args = Arguments\split('hello\\\\');
+
+        $this->assertEquals(array("hello\\"), $args);
+    }
+
+    public function testSingleStringWithInterpretedIncompleteEscapes()
+    {
+        $args = Arguments\split('hello\\');
+
+        $this->assertEquals(array("hello\\"), $args);
+    }
+
+    public function testSingleStringWithInterpretedHexEscapes()
+    {
+        $args = Arguments\split('hello\x20world');
+
+        $this->assertEquals(array("hello world"), $args);
+    }
+
+    public function testSingleStringWithInterpretedIncompleteHexEscapesEnd()
+    {
+        $args = Arguments\split('hello\x9');
+
+        $this->assertEquals(array("hello\t"), $args);
+    }
+
+    public function testSingleStringWithInterpretedIncompleteHexEscapesMiddle()
+    {
+        $args = Arguments\split('hello\x9world');
+
+        $this->assertEquals(array("hello\tworld"), $args);
+    }
+
+    public function testSingleStringWithInterpretedOctalEscapes()
+    {
+        $args = Arguments\split('hello\040world');
+
+        $this->assertEquals(array("hello world"), $args);
+    }
+
+    public function testSingleStringWithInterpretedShortOctalEscapes()
+    {
+        $args = Arguments\split('hello\40world');
+
+        $this->assertEquals(array("hello world"), $args);
+    }
+
+    public function testSingleStringWithUninterpretedNumberIsNotAnOctalEscape()
+    {
+        $args = Arguments\split('hello\\999world');
+
+        $this->assertEquals(array("hello999world"), $args);
+    }
+
+    // "\n"\n"\n"
+    public function testSingleStringWithCombinedDoubleQuotedPartsWithInterpretedEscapes()
+    {
+        $args = Arguments\split('"\n"\n"\n"');
+
+        $this->assertEquals(array("\n\n\n"), $args);
+    }
+
+    // '\n'\n'\n'
+    public function testSingleStringWithCombinedSingleQuotedPartsWithInterpretedEscapesOnlyInInnerUnquotedPart()
+    {
+        $s = "'";
+        $args = Arguments\split($s . '\n' . $s . '\n' . $s . '\n' . $s);
+
+        $this->assertEquals(array("\\n\n\\n"), $args);
+    }
+
+    // \n'\n'\n
+    public function testSingleStringWithCombinedSingleQuotedPartsWithInterpretedEscapesOnlyInOuterUnquotedParts()
+    {
+        $s = "'";
+        $args = Arguments\split('\n' . $s . '\n' . $s . '\n');
+
+        $this->assertEquals(array("\n\\n\n"), $args);
+    }
 }

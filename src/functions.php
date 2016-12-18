@@ -11,13 +11,6 @@ namespace Clue\Arguments;
  */
 function split($command)
 {
-    // map of escaped characters and their replacement
-    static $escapes = array(
-        'n' => "\n",
-        'r' => "\r",
-        't' => "\t",
-    );
-
     // whitespace characters count as argument separators
     static $ws = array(
         ' ',
@@ -41,6 +34,7 @@ function split($command)
 
         $inQuote = null;
         $argument = '';
+        $part = '';
 
         // read a single argument
         for (; isset($command[$i]); ++$i) {
@@ -50,33 +44,37 @@ function split($command)
                 // we're within a 'single quoted' string
                 if ($c === '\\' && isset($command[$i + 1]) && ($command[$i + 1] === "'" || $command[$i + 1] === '\\')) {
                     // escaped single quote or backslash ends up as char in argument
-                    $argument .= $command[++$i];
+                    $part .= $command[++$i];
                     continue;
                 } elseif ($c === "'") {
                     // single quote ends
                     $inQuote = null;
+                    $argument .= $part;
+                    $part = '';
                     continue;
                 }
             } else {
                 // we're not within any quotes or within a "double quoted" string
                 if ($c === '\\' && isset($command[$i + 1])) {
-                    // any escaped character will be processed
-                    $c = $command[++$i];
-                    if (isset($escapes[$c])) {
-                        // apply mapped character if applicable
-                        $argument .= $escapes[$c];
-                    } else {
-                        // pass through original character otherwise
-                        $argument .= $c;
-                    }
+                    // escaped characters will be interpreted when part is complete
+                    $part .= $command[$i] . $command[$i + 1];
+                    ++$i;
                     continue;
                 } elseif ($inQuote === '"' && $c === '"') {
                     // double quote ends
                     $inQuote = null;
+
+                    // previous double quoted part should be interpreted
+                    $argument .= stripcslashes($part);
+                    $part = '';
                     continue;
                 } elseif ($inQuote === null && ($c === '"' || $c === "'")) {
                     // start of quotes found
                     $inQuote = $c;
+
+                    // previous unquoted part should be interpreted
+                    $argument .= stripcslashes($part);
+                    $part = '';
                     continue;
                 } elseif ($inQuote === null && in_array($c, $ws)) {
                     // whitespace character terminates unquoted argument
@@ -84,12 +82,17 @@ function split($command)
                 }
             }
 
-            $argument .= $c;
+            $part .= $c;
         }
 
         // end of argument reached. Still in quotes is a parse error.
         if ($inQuote !== null) {
             throw new \RuntimeException('Still in quotes (' . $inQuote  . ')');
+        }
+
+        // add remaining part to current argument
+        if ($part !== '') {
+            $argument .= stripcslashes($part);
         }
 
         $args []= $argument;
