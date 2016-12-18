@@ -178,7 +178,7 @@ The `UnclosedQuotesException` will be raised by the [`split()`](#split)
 function when the input line has unbalanced quotes (i.e. a quoted argument
 started without passing ending quotes).
 
-This class extends PHP's `RuntimeException`.
+This class extends PHP's [`InvalidArgumentException`](http://php.net/manual/en/class.invalidargumentexception.php).
 
 The `getQuotes(): string` method can be used to get the quotes this argument
 started with:

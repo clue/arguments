@@ -2,9 +2,9 @@
 
 namespace Clue\Arguments;
 
-use RuntimeException;
+use InvalidArgumentException;
 
-class UnclosedQuotesException extends RuntimeException
+class UnclosedQuotesException extends InvalidArgumentException
 {
     private $quotes;
     private $position;
