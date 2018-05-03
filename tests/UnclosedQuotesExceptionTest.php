@@ -2,7 +2,7 @@
 
 use Clue\Arguments\UnclosedQuotesException;
 
-class UnclosedQuotesExceptionTest extends PHPUnit_Framework_TestCase
+class UnclosedQuotesExceptionTest extends PHPUnit\Framework\TestCase
 {
     public function testCtorWithOnlyQuotesAppliesMessage()
     {
