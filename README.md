@@ -19,6 +19,7 @@ But many other tools may need similar parsing during their runtime.
   * [split()](#split)
   * [UnclosedQuotesException](#unclosedquotesexception)
 * [Install](#install)
+* [Tests](#tests)
 * [License](#license)
 * [More](#more)
 
@@ -67,7 +68,7 @@ Alternatively, you can also refer to them with their fully-qualified name:
 
 ```php
 \Clue\Arguments\split(…);
-``` 
+```
 
 #### split()
 
@@ -229,6 +230,26 @@ $ composer require clue/arguments:^2.0
 ```
 
 See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.
+
+This project aims to run on any platform and thus does not require any PHP
+extensions and supports running on legacy PHP 5.3 through current PHP 7+ and
+HHVM.
+It's *highly recommended to use PHP 7+* for this project.
+
+## Tests
+
+To run the test suite, you first need to clone this repo and then install all
+dependencies [through Composer](http://getcomposer.org):
+
+```bash
+$ composer install
+```
+
+To run the test suite, go to the project root and run:
+
+```bash
+$ php vendor/bin/phpunit
+```
 
 ## License
 
