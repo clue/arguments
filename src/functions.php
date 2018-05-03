@@ -6,19 +6,22 @@ namespace Clue\Arguments;
  * Splits the given command line string into an array of command arguments
  *
  * @param string $command command line string
+ * @param array  $optionalArgumentSeparatorChars array of chars like [",", "|"] to treat as argument separators
+ *
  * @return string[] array of command line argument strings
- * @throws \RuntimeException
  */
-function split($command)
+function split($command, $optionalArgumentSeparatorChars = array())
 {
     // whitespace characters count as argument separators
-    static $ws = array(
+    static $defaultArgumentSeparatorChars = array(
         ' ',
         "\r",
         "\n",
         "\t",
         "\v",
     );
+
+    $ws = array_merge($defaultArgumentSeparatorChars, $optionalArgumentSeparatorChars);
 
     $i = 0;
     $args = array();
