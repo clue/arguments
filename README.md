@@ -1,6 +1,6 @@
 # clue/arguments
 
-[![CI status](https://github.com/clue/php-arguments/workflows/CI/badge.svg)](https://github.com/clue/php-arguments/actions)
+[![CI status](https://github.com/clue/arguments/workflows/CI/badge.svg)](https://github.com/clue/arguments/actions)
 
 The simple way to split your command line string into an array of command arguments in PHP.
 
@@ -16,6 +16,7 @@ But many other tools may need similar parsing during their runtime.
 
 **Table of contents**
 
+* [Support us](#support-us)
 * [Quickstart example](#quickstart-example)
 * [Usage](#usage)
   * [split()](#split)
@@ -24,6 +25,16 @@ But many other tools may need similar parsing during their runtime.
 * [Tests](#tests)
 * [License](#license)
 * [More](#more)
+
+## Support us
+
+We invest a lot of time developing, maintaining and updating our awesome
+open-source projects. You can help us sustain this high-quality of our work by
+[becoming a sponsor on GitHub](https://github.com/sponsors/clue). Sponsors get
+numerous benefits in return, see our [sponsoring page](https://github.com/sponsors/clue)
+for details.
+
+Let's take these projects to the next level together! 🚀
 
 ### Quickstart example
 
@@ -182,7 +193,7 @@ The `UnclosedQuotesException` will be raised by the [`split()`](#split)
 function when the input line has unbalanced quotes (i.e. a quoted argument
 started without passing ending quotes).
 
-This class extends PHP's [`InvalidArgumentException`](http://php.net/manual/en/class.invalidargumentexception.php).
+This class extends PHP's [`InvalidArgumentException`](https://www.php.net/manual/en/class.invalidargumentexception.php).
 
 The `getQuotes(): string` method can be used to get the quotes this argument
 started with:
@@ -222,13 +233,14 @@ assert($line[$pos] === $e->getQuotes());
 
 ## Install
 
-The recommended way to install this library is [through Composer](http://getcomposer.org).
-[New to Composer?](http://getcomposer.org/doc/00-intro.md)
+The recommended way to install this library is [through Composer](https://getcomposer.org/).
+[New to Composer?](https://getcomposer.org/doc/00-intro.md)
 
+This project follows [SemVer](https://semver.org/).
 This will install the latest supported version:
 
 ```bash
-$ composer require clue/arguments:^2.0
+$ composer require clue/arguments:^2.1
 ```
 
 See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.
@@ -241,7 +253,7 @@ It's *highly recommended to use PHP 7+* for this project.
 ## Tests
 
 To run the test suite, you first need to clone this repo and then install all
-dependencies [through Composer](http://getcomposer.org):
+dependencies [through Composer](https://getcomposer.org):
 
 ```bash
 $ composer install
@@ -255,13 +267,16 @@ $ php vendor/bin/phpunit
 
 ## License
 
-MIT
+This project is released under the permissive [MIT license](LICENSE).
+
+> Did you know that I offer custom development services and issuing invoices for
+  sponsorships of releases and for contributions? Contact me (@clue) for details.
 
 ## More
 
 * If you want to register/route available commands and their arguments, you may
-  want to look into using [clue/commander](https://github.com/clue/php-commander).
+  want to look into using [clue/commander](https://github.com/clue/commander).
 
 * If you want to build an interactive CLI tool, you may want to look into using
-  [clue/stdio-react](https://github.com/clue/php-stdio-react) in order to react
+  [clue/reactphp-stdio](https://github.com/clue/reactphp-stdio) in order to react
   to commands from STDIN.

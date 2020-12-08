@@ -2,12 +2,12 @@
     "name": "clue/arguments",
     "description": "The simple way to split your command line string into an array of command arguments in PHP.",
     "keywords": ["arguments", "command", "command line", "split", "explode", "args", "argv", "parse"],
-    "homepage": "https://github.com/clue/php-arguments",
+    "homepage": "https://github.com/clue/arguments",
     "license": "MIT",
     "authors": [
         {
             "name": "Christian Lück",
-            "email": "christian@lueck.tv"
+            "email": "christian@clue.engineering"
         }
     ],
     "require": {
