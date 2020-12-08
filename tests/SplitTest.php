@@ -96,27 +96,21 @@ class SplitTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(array('he"llo'), $args);
     }
 
-    /**
-     * @expectedException Clue\Arguments\UnclosedQuotesException
-     */
     public function testSingleStringWithUnbalancedDoubleQuotesThrows()
     {
+        $this->setExpectedException('Clue\Arguments\UnclosedQuotesException');
         Arguments\split('"hello');
     }
 
-    /**
-     * @expectedException Clue\Arguments\UnclosedQuotesException
-     */
     public function testSingleStringWithUnbalancedSingleQuotesThrows()
     {
+        $this->setExpectedException('Clue\Arguments\UnclosedQuotesException');
         Arguments\split("'hello");
     }
 
-    /**
-     * @expectedException Clue\Arguments\UnclosedQuotesException
-     */
     public function testSimpleStringWithUnbalancedSingleQuotesThrows()
     {
+        $this->setExpectedException('Clue\Arguments\UnclosedQuotesException');
         Arguments\split("echo let's go");
     }
 
@@ -134,11 +128,9 @@ class SplitTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(array('hello'), $args);
     }
 
-    /**
-     * @expectedException Clue\Arguments\UnclosedQuotesException
-     */
     public function testSimpleStringWithUnbalancedDoubleQuotesThrows()
     {
+        $this->setExpectedException('Clue\Arguments\UnclosedQuotesException');
         Arguments\split('hello "world');
     }
 
@@ -315,5 +307,22 @@ class SplitTest extends PHPUnit\Framework\TestCase
         $args = Arguments\split('\n' . $s . '\n' . $s . '\n');
 
         $this->assertEquals(array("\n\\n\n"), $args);
+    }
+
+    public function setExpectedException($exception, $exceptionMessage = '', $exceptionCode = null)
+    {
+        if (method_exists($this, 'expectException')) {
+            // PHPUnit 5.2+
+            $this->expectException($exception);
+            if ($exceptionMessage !== '') {
+                $this->expectExceptionMessage($exceptionMessage);
+            }
+            if ($exceptionCode !== null) {
+                $this->expectExceptionCode($exceptionCode);
+            }
+        } else {
+            // legacy PHPUnit 4 - PHPUnit 5.1
+            parent::setExpectedException($exception, $exceptionMessage, $exceptionCode);
+        }
     }
 }
