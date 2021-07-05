@@ -1,6 +1,7 @@
 # clue/arguments
 
 [![CI status](https://github.com/clue/arguments/workflows/CI/badge.svg)](https://github.com/clue/arguments/actions)
+[![installs on Packagist](https://img.shields.io/packagist/dt/clue/arguments?color=blue&label=installs%20on%20Packagist)](https://packagist.org/packages/clue/arguments)
 
 The simple way to split your command line string into an array of command arguments in PHP.
 
