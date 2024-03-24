@@ -1,6 +1,6 @@
 # clue/arguments
 
-[![CI status](https://github.com/clue/arguments/workflows/CI/badge.svg)](https://github.com/clue/arguments/actions)
+[![CI status](https://github.com/clue/arguments/actions/workflows/ci.yml/badge.svg)](https://github.com/clue/arguments/actions)
 [![installs on Packagist](https://img.shields.io/packagist/dt/clue/arguments?color=blue&label=installs%20on%20Packagist)](https://packagist.org/packages/clue/arguments)
 
 The simple way to split your command line string into an array of command arguments in PHP.
@@ -45,6 +45,10 @@ command line from user input (via `STDIN`) and then executes some very simple
 demo commands:
 
 ```php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
 while (true) {
     $line = fgets(STDIN, 1024);
 
@@ -63,7 +67,7 @@ while (true) {
 }
 ```
 
-See also the [examples](examples).
+See also the [examples](examples/).
 
 ## Usage
 
@@ -241,7 +245,7 @@ This project follows [SemVer](https://semver.org/).
 This will install the latest supported version:
 
 ```bash
-$ composer require clue/arguments:^2.1
+composer require clue/arguments:^2.1
 ```
 
 See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.
@@ -249,21 +253,21 @@ See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.
 This project aims to run on any platform and thus does not require any PHP
 extensions and supports running on legacy PHP 5.3 through current PHP 8+ and
 HHVM.
-It's *highly recommended to use PHP 7+* for this project.
+It's *highly recommended to use the latest supported PHP version* for this project.
 
 ## Tests
 
 To run the test suite, you first need to clone this repo and then install all
-dependencies [through Composer](https://getcomposer.org):
+dependencies [through Composer](https://getcomposer.org/):
 
 ```bash
-$ composer install
+composer install
 ```
 
 To run the test suite, go to the project root and run:
 
 ```bash
-$ php vendor/bin/phpunit
+vendor/bin/phpunit
 ```
 
 ## License
